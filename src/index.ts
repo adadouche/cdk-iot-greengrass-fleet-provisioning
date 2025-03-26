@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import path = require('node:path');
+import * as path from "node:path";
 
 import * as cdk from 'aws-cdk-lib';
 import * as cfn from 'aws-cdk-lib/aws-cloudformation';
@@ -16,13 +16,13 @@ import { Construct } from 'constructs';
  * Properties of GreengrassFleetProvisioning construct
  */
 export interface GreengrassFleetProvisioningProps extends cdk.ResourceProps {
-  // The resource prefix 
+  // The resource prefix
   readonly resourcePrefix: string;
 
   // The AWS environment (account/region) where this stack will be deployed.
   readonly env: cdk.Environment;
 
-  // The bucket to save the certificate and private key files 
+  // The bucket to save the certificate and private key files
   readonly certificateBucket: s3.IBucket;
 
   // The prefix to save the certificate and private key files in SSM and S3
@@ -68,7 +68,7 @@ export class GreengrassFleetProvisioning extends Construct {
 
     new iot.CfnPolicyPrincipalAttachment(this, `${this.props.resourcePrefix}-gg-provisioning-claim-policy-attachment`, {
       policyName: `${this.addProvisioningClaimPolicy().policyName}`,
-      principal: this.addFleetProvisioningCertificateArn()
+      principal: this.addFleetProvisioningCertificateArn(),
     });
   }
 
@@ -77,7 +77,7 @@ export class GreengrassFleetProvisioning extends Construct {
       const lambdaFunction = new nodejs.NodejsFunction(this, `${this.props.resourcePrefix}-cr-lambda`, {
         functionName: `${this.props.resourcePrefix}-gg-fleet-provisioning`,
         runtime: lambda.Runtime.NODEJS_LATEST,
-        entry: path.join(__dirname, "lambda/greengrass-fleet-provisioning.handler.ts"),
+        entry: path.join(__dirname, 'lambda/greengrass-fleet-provisioning.handler.ts'),
         handler: 'handler',
         bundling: {
           minify: true, // minify code, defaults to false
@@ -96,7 +96,7 @@ export class GreengrassFleetProvisioning extends Construct {
             'iot:DescribeEndpoint',
           ],
           resources: [
-            `*`,
+            '*',
           ],
         }),
       );
@@ -122,7 +122,7 @@ export class GreengrassFleetProvisioning extends Construct {
             `arn:aws:iam::${this.props.env.account}:role/${this.props.resourcePrefix}-*`,
             `arn:aws:iot:${this.props.env.region}:${this.props.env.account}:cert/*`,
             `arn:aws:ssm:${this.props.env.region}:${this.props.env.account}:parameter/${this.props.resourcePrefix}*`,
-            `arn:aws:kms:${this.props.env.region}:${this.props.env.account}:key/*`
+            `arn:aws:kms:${this.props.env.region}:${this.props.env.account}:key/*`,
           ],
         }),
       );
@@ -148,16 +148,16 @@ export class GreengrassFleetProvisioning extends Construct {
 
   private addFleetProvisioningCertificateId(): any {
     if (this.certificateId === undefined) {
-      const cr = this.addFleetProvisioningCustomResource();
-      this.certificateId = cr.getAtt('certificateId').toString();
+      const _customResource = this.addFleetProvisioningCustomResource();
+      this.certificateId = _customResource.getAtt('certificateId').toString();
     }
     return this.certificateId;
   }
 
   private addFleetProvisioningCertificateArn(): any {
     if (this.certificateArn === undefined) {
-      const cr = this.addFleetProvisioningCustomResource();
-      this.certificateArn = cr.getAtt('certificateArn').toString();
+      const _customResource = this.addFleetProvisioningCustomResource();
+      this.certificateArn = _customResource.getAtt('certificateArn').toString();
     }
     return this.certificateArn;
   }
@@ -173,17 +173,17 @@ export class GreengrassFleetProvisioning extends Construct {
       this.fleetProvisioningRole.assumeRolePolicy?.addStatements(
         new iam.PolicyStatement({
           principals: [
-            new iam.ServicePrincipal('iot.amazonaws.com')
+            new iam.ServicePrincipal('iot.amazonaws.com'),
           ],
           actions: [
-            'sts:AssumeRole'
+            'sts:AssumeRole',
           ],
-          effect: iam.Effect.ALLOW
-        })
+          effect: iam.Effect.ALLOW,
+        }),
       );
 
       this.fleetProvisioningRole.addManagedPolicy({
-        managedPolicyArn: 'arn:aws:iam::aws:policy/service-role/AWSIoTThingsRegistration'
+        managedPolicyArn: 'arn:aws:iam::aws:policy/service-role/AWSIoTThingsRegistration',
       });
 
       this.fleetProvisioningRole.addToPolicy(
@@ -200,9 +200,9 @@ export class GreengrassFleetProvisioning extends Construct {
             's3:GetObject',
             's3:ListBucket',
             's3:PutObject',
-            's3:PutObjectAcl'
-          ]
-        })
+            's3:PutObjectAcl',
+          ],
+        }),
       );
     }
     return this.fleetProvisioningRole;
@@ -264,7 +264,7 @@ export class GreengrassFleetProvisioning extends Construct {
               "Type": "AWS::IoT::Certificate"
             }
           }
-        }`
+        }`,
       });
     }
     return this.fleetProvisionTemplate;
@@ -272,16 +272,16 @@ export class GreengrassFleetProvisioning extends Construct {
 
   private addIoTCredentialEndpoint(): any {
     if (this.credentialEndpoint === undefined) {
-      const cr = this.addFleetProvisioningCustomResource();
-      this.credentialEndpoint = cr.getAtt('credentialEndpointAddress').toString();
+      const _customResource = this.addFleetProvisioningCustomResource();
+      this.credentialEndpoint = _customResource.getAtt('credentialEndpointAddress').toString();
     }
     return this.credentialEndpoint;
   }
 
   private addIoTDataEndpoint(): any {
     if (this.dataEndpoint === undefined) {
-      const cr = this.addFleetProvisioningCustomResource();
-      this.dataEndpoint = cr.getAtt('dataEndpointAddress').toString();
+      const _customResource = this.addFleetProvisioningCustomResource();
+      this.dataEndpoint = _customResource.getAtt('dataEndpointAddress').toString();
     }
     return this.dataEndpoint;
   }
@@ -290,7 +290,7 @@ export class GreengrassFleetProvisioning extends Construct {
     if (this.tokenExchangeRole === undefined) {
       this.tokenExchangeRole = new iam.Role(this, `${this.props.resourcePrefix}-gg-token-exchange-role`, {
         roleName: `${this.props.resourcePrefix}-gg-token-exchange`,
-        description: "Greengrass core devices token exchange role",
+        description: 'Greengrass core devices token exchange role',
         assumedBy: new iam.ServicePrincipal('credentials.iot.amazonaws.com'),
         path: '/',
       });
@@ -298,13 +298,13 @@ export class GreengrassFleetProvisioning extends Construct {
       this.tokenExchangeRole.assumeRolePolicy?.addStatements(
         new iam.PolicyStatement({
           principals: [
-            new iam.ServicePrincipal('credentials.iot.amazonaws.com')
+            new iam.ServicePrincipal('credentials.iot.amazonaws.com'),
           ],
           actions: [
-            'sts:AssumeRole'
+            'sts:AssumeRole',
           ],
-          effect: iam.Effect.ALLOW
-        })
+          effect: iam.Effect.ALLOW,
+        }),
       );
 
       this.tokenExchangeRole.addToPolicy(
@@ -321,9 +321,9 @@ export class GreengrassFleetProvisioning extends Construct {
             's3:GetObject',
             's3:ListBucket',
             's3:PutObject',
-            's3:PutObjectAcl'
-          ]
-        })
+            's3:PutObjectAcl',
+          ],
+        }),
       );
     }
     return this.tokenExchangeRole;
@@ -364,8 +364,9 @@ export class GreengrassFleetProvisioning extends Construct {
                 'iot:AssumeRoleWithCertificate',
               ],
               resources: [this.addTokenExchangeRoleAlias().attrRoleAliasArn],
-            })],
-        })
+            }),
+          ],
+        }),
       });
     }
     return this.deviceDefaultPolicy;
@@ -380,7 +381,7 @@ export class GreengrassFleetProvisioning extends Construct {
             new iam.PolicyStatement({
               effect: iam.Effect.ALLOW,
               actions: [
-                'iot:Connect'
+                'iot:Connect',
               ],
               resources: ['*'],
             }),
@@ -392,7 +393,7 @@ export class GreengrassFleetProvisioning extends Construct {
               ],
               resources: [
                 `arn:aws:iot:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:topic/$aws/certificates/create/*`,
-                `arn:aws:iot:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:topic/$aws/provisioning-templates/${this.addFleetProvisioningTemplate().templateName}/provision/*`
+                `arn:aws:iot:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:topic/$aws/provisioning-templates/${this.addFleetProvisioningTemplate().templateName}/provision/*`,
               ],
             }),
             new iam.PolicyStatement({
@@ -404,8 +405,9 @@ export class GreengrassFleetProvisioning extends Construct {
                 `arn:aws:iot:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:topicfilter/$aws/certificates/create/*`,
                 `arn:aws:iot:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:topicfilter/$aws/provisioning-templates/${this.addFleetProvisioningTemplate().templateName}/provision/*`,
               ],
-            })],
-        })
+            }),
+          ],
+        }),
       });
     }
     return this.provisioningClaimPolicy;

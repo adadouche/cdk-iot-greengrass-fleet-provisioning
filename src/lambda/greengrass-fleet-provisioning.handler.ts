@@ -161,7 +161,7 @@ async function deleteResource(resource: ResourceProperties, certificateId: strin
 
   await s3Client.deleteObject({
     Bucket: resource.CertificateBucketName,
-    Key: `${pathCertificate}`
+    Key: `${pathCertificate}`,
   });
   await s3Client.deleteObject({
     Bucket: resource.CertificateBucketName,
@@ -211,9 +211,9 @@ async function deleteResource(resource: ResourceProperties, certificateId: strin
     newStatus: 'INACTIVE',
   });
   await iotClient.deleteCertificate({
-    certificateId: certificateId
+    certificateId: certificateId,
   });
-  
+
   return {
   };
 }
