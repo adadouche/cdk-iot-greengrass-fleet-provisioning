@@ -114,6 +114,26 @@
       "type": "build"
     },
     {
+      "name": "@aws-sdk/client-iot",
+      "version": "^3.758.0",
+      "type": "bundled"
+    },
+    {
+      "name": "@aws-sdk/client-s3",
+      "version": "^3.758.0",
+      "type": "bundled"
+    },
+    {
+      "name": "@aws-sdk/client-ssm",
+      "version": "^3.758.0",
+      "type": "bundled"
+    },
+    {
+      "name": "aws-lambda",
+      "version": "^1.0.7",
+      "type": "bundled"
+    },
+    {
       "name": "aws-cdk-lib",
       "version": "^2.185.0",
       "type": "peer"
@@ -124,28 +144,8 @@
       "type": "peer"
     },
     {
-      "name": "@aws-sdk/client-iot",
-      "version": "^3.758.0",
-      "type": "runtime"
-    },
-    {
-      "name": "@aws-sdk/client-s3",
-      "version": "^3.758.0",
-      "type": "runtime"
-    },
-    {
-      "name": "@aws-sdk/client-ssm",
-      "version": "^3.758.0",
-      "type": "runtime"
-    },
-    {
       "name": "aws-cdk-lib",
-      "version": "^2.185.0",
-      "type": "runtime"
-    },
-    {
-      "name": "aws-lambda",
-      "version": "^1.0.7",
+      "version": "2.185.0",
       "type": "runtime"
     }
   ],

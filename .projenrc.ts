@@ -3,6 +3,9 @@ import { awscdk } from 'projen';
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Abdelhalim Dadouche',
   authorAddress: 'adadouche@hotmail.com',
+  
+  packageName: "cdk-iot-greengrass-fleet-provisioning",  /* The "name" in package.json. */
+  // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
   cdkVersion: '2.185.0',
   defaultReleaseBranch: 'main',
   jsiiVersion: '~5.8.0',
@@ -13,13 +16,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
   /* Runtime dependencies of this module. */
   deps: [
-    'aws-cdk-lib@^2.185.0',
-    '@aws-sdk/client-iot@^3.758.0',
-    '@aws-sdk/client-s3@^3.758.0',
-    '@aws-sdk/client-ssm@^3.758.0',
-    'aws-lambda@^1.0.7',
+    'aws-cdk-lib@2.185.0',
   ],
-  // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
   /* Build dependencies for this module. */
   devDeps: [
     '@types/aws-lambda@^8.10.147',
@@ -29,9 +27,11 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'esbuild@^0.25.1',
     'aws-cdk@^2.185.0',
   ],
-  // deps: [],                /* Runtime dependencies of this module. */
-  // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
-  // devDeps: [],             /* Build dependencies for this module. */
-  // packageName: undefined,  /* The "name" in package.json. */
+  bundledDeps: [
+    '@aws-sdk/client-iot@^3.758.0',
+    '@aws-sdk/client-s3@^3.758.0',
+    '@aws-sdk/client-ssm@^3.758.0',
+    'aws-lambda@^1.0.7',
+  ],
 });
 project.synth();
