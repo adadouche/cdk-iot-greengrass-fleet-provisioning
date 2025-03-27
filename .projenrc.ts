@@ -3,7 +3,6 @@ import { awscdk } from 'projen';
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Abdelhalim Dadouche',
   authorAddress: 'adadouche@hotmail.com',
-
   packageName: 'cdk-iot-greengrass-fleet-provisioning', /* The "name" in package.json. */
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
   cdkVersion: '2.185.0',
