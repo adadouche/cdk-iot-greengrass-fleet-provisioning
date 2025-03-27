@@ -152,6 +152,17 @@ async function createResource(resource: ResourceProperties): Promise<CreateResou
     certificateArn: certificateArn!,
     credentialEndpointAddress: credentialEndpointAddress.endpointAddress!,
     dataEndpointAddress: dataEndpointAddress.endpointAddress!,
+
+    // s3CertificatePem: `s3://${resource.CertificateBucketName}/${pathCertificatePem}`,
+    // s3CertificatePrivateKey: `s3://${resource.CertificateBucketName}/${pathCertificatePrivateKey}`,
+    // s3CertificatePublicKey: `s3://${resource.CertificateBucketName}/${pathCertificatePublicKey}`,
+    // s3CertificateRoot: `s3://${resource.CertificateBucketName}/${pathCertificateRoot}`,
+
+    // ssmParamCertificateId: `/${resource.ResourcePrefix}/certificateId`,
+    // ssmParamCertificatePem: `/${resource.ResourcePrefix}/${certificateId}/pem`,
+    // ssmParamCertificatePrivateKey: `/${resource.ResourcePrefix}/${certificateId}/key-private`,
+    // ssmParamCertificatePublicKey: `/${resource.ResourcePrefix}/${certificateId}/key-public`,
+    // ssmParamCertificateRoot: `/${resource.ResourcePrefix}/${certificateId}/root-ca`,
   };
 }
 

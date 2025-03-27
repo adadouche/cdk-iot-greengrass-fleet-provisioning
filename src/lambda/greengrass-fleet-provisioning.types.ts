@@ -35,6 +35,17 @@ export type CreateResourcesResponse = {
   certificateArn: string;
   credentialEndpointAddress: string;
   dataEndpointAddress: string;
+
+  // s3CertificatePem: string,
+  // s3CertificatePrivateKey: string,
+  // s3CertificatePublicKey: string,
+  // s3CertificateRoot: string,
+
+  // ssmParamCertificateId: string,
+  // ssmParamCertificatePem: string,
+  // ssmParamCertificatePrivateKey: string,
+  // ssmParamCertificatePublicKey: string,
+  // ssmParamCertificateRoot: string,
 };
 export type DeleteResourcesResponse = {
 };
