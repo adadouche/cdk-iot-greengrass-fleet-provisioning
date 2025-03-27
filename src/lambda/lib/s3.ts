@@ -16,10 +16,10 @@ export interface S3ClientPort {
 export const S3ClientAdapter = (client: S3Client): S3ClientPort => {
   return {
     deleteObject: async (input) => {
-      return await client.send(new DeleteObjectCommand(input));
+      return client.send(new DeleteObjectCommand(input));
     },
     putObject: async (input) => {
-      return await client.send(new PutObjectCommand(input));
+      return client.send(new PutObjectCommand(input));
     },
   };
 };

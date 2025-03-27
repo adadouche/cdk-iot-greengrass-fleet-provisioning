@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import * as path from "node:path";
+import * as path from 'node:path';
 
 import * as cdk from 'aws-cdk-lib';
 import * as cfn from 'aws-cdk-lib/aws-cloudformation';

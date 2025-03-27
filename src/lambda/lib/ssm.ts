@@ -20,13 +20,13 @@ export interface SSMClientPort {
 export const SSMClientAdapter = (client: SSMClient): SSMClientPort => {
   return {
     getParameter: async (input) => {
-      return await client.send(new GetParameterCommand(input));
+      return client.send(new GetParameterCommand(input));
     },
     deleteParameter: async (input) => {
-      return await client.send(new DeleteParameterCommand(input));
+      return client.send(new DeleteParameterCommand(input));
     },
     putParameter: async (input) => {
-      return await client.send(new PutParameterCommand(input));
+      return client.send(new PutParameterCommand(input));
     },
   };
 };

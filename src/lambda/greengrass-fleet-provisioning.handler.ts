@@ -21,7 +21,11 @@ const iotClient = IoTClientAdapter(new IoTClient());
 const ssmClient = SSMClientAdapter(new SSMClient());
 const s3Client = S3ClientAdapter(new S3Client());
 
-export const handler = async (event: CdkCustomResourceEvent<ResourceProperties>, context: Context, _callback: Callback): Promise<CdkCustomResourceResponse> => {
+export const handler = async (
+  event: CdkCustomResourceEvent<ResourceProperties>,
+  context: Context,
+  _callback: Callback,
+): Promise<CdkCustomResourceResponse> => {
   const response: CdkCustomResourceResponse = {
     StackId: event.StackId,
     RequestId: event.RequestId,

@@ -23,18 +23,18 @@ export interface IoTClientPort {
 export const IoTClientAdapter = (client: IoTClient): IoTClientPort => {
   return {
     createKeysAndCertificate: async () => {
-      return await client.send(new CreateKeysAndCertificateCommand({
+      return client.send(new CreateKeysAndCertificateCommand({
         setAsActive: true,
       }));
     },
     deleteCertificate: async (input) => {
-      return await client.send(new DeleteCertificateCommand(input));
+      return client.send(new DeleteCertificateCommand(input));
     },
     describeEndpoint: async (input) => {
-      return await client.send(new DescribeEndpointCommand(input));
+      return client.send(new DescribeEndpointCommand(input));
     },
     updateCertificate: async (input) => {
-      return await client.send(new UpdateCertificateCommand(input));
+      return client.send(new UpdateCertificateCommand(input));
     },
   };
 };
