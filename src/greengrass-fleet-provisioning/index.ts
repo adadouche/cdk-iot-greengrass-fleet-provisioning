@@ -1,70 +1,27 @@
 import { IoTClient } from '@aws-sdk/client-iot';
 import { S3Client } from '@aws-sdk/client-s3';
 import { SSMClient } from '@aws-sdk/client-ssm';
-import { ServiceException } from '@smithy/smithy-client';
-import {
-  CdkCustomResourceEvent,
-  CdkCustomResourceResponse,
-  Context,
-  Callback,
-} from 'aws-lambda';
+
+export * from './types';
+export * from './iot';
+export * from './s3';
+export * from './ssm';
+
+import { IoTClientAdapter } from './iot';
+import { S3ClientAdapter } from './s3';
+import { SSMClientAdapter } from './ssm';
+
 import {
   CreateResourcesResponse,
   DeleteResourcesResponse,
   ResourceProperties,
-} from './greengrass-fleet-provisioning.types';
-import { IoTClientAdapter } from './lib/iot';
-import { S3ClientAdapter } from './lib/s3';
-import { SSMClientAdapter } from './lib/ssm';
+} from './types';
 
 const iotClient = IoTClientAdapter(new IoTClient());
 const ssmClient = SSMClientAdapter(new SSMClient());
 const s3Client = S3ClientAdapter(new S3Client());
 
-export const handler = async (
-  event: CdkCustomResourceEvent<ResourceProperties>,
-  context: Context,
-  _callback: Callback,
-): Promise<CdkCustomResourceResponse> => {
-  const response: CdkCustomResourceResponse = {
-    StackId: event.StackId,
-    RequestId: event.RequestId,
-    LogicalResourceId: event.LogicalResourceId,
-    PhysicalResourceId: context.logGroupName,
-    Status: 'SUCCESS',
-  };
-
-  console.log(`RequestType : ${event.RequestType}`);
-
-  try {
-    if (event.RequestType === 'Create') {
-      response.Data = await createResource(event.ResourceProperties);
-      response.PhysicalResourceId = response.Data.certificateId;
-    } else if (event.RequestType === 'Delete') {
-      response.Data = await deleteResource(event.ResourceProperties, event.PhysicalResourceId);
-      response.PhysicalResourceId = event.PhysicalResourceId;
-    } else if (event.RequestType === 'Update') {
-      response.PhysicalResourceId = event.PhysicalResourceId;
-      // response.Data = await deleteResource(event.ResourceProperties);
-      // response.Data = await createResource(event.ResourceProperties);
-    } else {
-      throw new Error('Received invalid request type');
-    }
-  } catch (err) {
-    console.error(`catching error : ${err}`);
-    const reason = (err as ServiceException).message;
-    response.Status = 'FAILED';
-    response.Reason = reason;
-    throw new Error(`Received an exception with the following message: ${reason}`);
-    // @ts-ignore
-    response.PhysicalResourceId = event.PhysicalResourceId || LogicalResourceId;
-  }
-  console.log('Response:');
-  console.log(`${JSON.stringify(response)}`);
-  return response;
-};
-
-async function createResource(resource: ResourceProperties): Promise<CreateResourcesResponse> {
+export async function createResource(resource: ResourceProperties): Promise<CreateResourcesResponse> {
   const { certificateId, certificateArn, certificatePem, keyPair } = await iotClient.createKeysAndCertificate();
   console.log(`Iot Certificate - Created Certificate with Id ${certificateId}`);
 
@@ -166,7 +123,7 @@ async function createResource(resource: ResourceProperties): Promise<CreateResou
   };
 }
 
-async function deleteResource(resource: ResourceProperties, certificateId: string): Promise<DeleteResourcesResponse> {
+export async function deleteResource(resource: ResourceProperties, certificateId: string): Promise<DeleteResourcesResponse> {
 
   const pathCertificate: string = `${resource.CertificatePrefix}/${certificateId}`;
   const pathCertificatePem: string = `${pathCertificate}.pem`;

@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-import * as path from 'node:path';
-
 import * as cdk from 'aws-cdk-lib';
 import * as cfn from 'aws-cdk-lib/aws-cloudformation';
 import * as iam from 'aws-cdk-lib/aws-iam';
@@ -66,7 +64,7 @@ export class GreengrassFleetProvisioning extends Construct {
     this.credentialEndpoint = this.addIoTCredentialEndpoint();
     this.dataEndpoint = this.addIoTDataEndpoint();
 
-    new iot.CfnPolicyPrincipalAttachment(this, `${this.props.resourcePrefix}-gg-provisioning-claim-policy-attachment`, {
+    new iot.CfnPolicyPrincipalAttachment(this, 'greengrass-provisioning-claim-policy-attachment', {
       policyName: `${this.addProvisioningClaimPolicy().policyName}`,
       principal: this.addFleetProvisioningCertificateArn(),
     });
@@ -74,10 +72,10 @@ export class GreengrassFleetProvisioning extends Construct {
 
   private addFleetProvisioningCustomResource() {
     if (this.fleetProvisionCustomResource === undefined) {
-      const lambdaFunction = new nodejs.NodejsFunction(this, `${this.props.resourcePrefix}-cr-lambda`, {
+      const lambdaFunction = new nodejs.NodejsFunction(this, 'function', {
         functionName: `${this.props.resourcePrefix}-gg-fleet-provisioning`,
         runtime: lambda.Runtime.NODEJS_LATEST,
-        entry: path.join(__dirname, 'lambda/greengrass-fleet-provisioning.handler.ts'),
+        // entry: path.join(__dirname, 'lambda/greengrass-fleet-provisioning.handler.ts'),
         handler: 'handler',
         bundling: {
           minify: true, // minify code, defaults to false

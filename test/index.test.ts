@@ -68,7 +68,7 @@ describe('GreengrassFleetProvisioningStack', () => {
       },
     }, 3);
     template.hasResourceProperties('AWS::IAM::Policy', {
-      PolicyName: Match.stringLikeRegexp(`${construct.node.id.replace(/-/g, '')}${props.resourcePrefix.replace(/-/g, '')}crlambdaServiceRoleDefaultPolicy*`),
+      PolicyName: Match.stringLikeRegexp(`${construct.node.id.replace(/-/g, '')}functionServiceRoleDefaultPolicy*`),
       PolicyDocument: {
         Statement: Match.arrayWith([Match.objectLike(
           {

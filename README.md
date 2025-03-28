@@ -7,7 +7,7 @@
 [![GitHub release](https://img.shields.io/github/v/release/adadouche/cdk-iot-greengrass-fleet-provisioning?sort=semver&style=flat-square)](https://github.com/adadouche/cdk-iot-greengrass-fleet-provisioning/releases)
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod&style=flat-square)](https://gitpod.io/#https://github.com/adadouche/cdk-iot-greengrass-fleet-provisioning)
 
-# CDK IoT GreenGrass Fleet Provisioning Certificates
+# CDK Construct for AWS IoT Greengrass Fleet Provisioning (with AWS IoT Certificates)
 
 [AWS CDK] L3 construct for managing AWS IoT fleet provisioning for Greengrass devices (including [AWS IoT Core] Certificates).
 

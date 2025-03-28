@@ -92,27 +92,10 @@ exports[`GreengrassFleetProvisioningStack Snapshot 1`] = `
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
-    "testconstructgreengrassfleetprovisioningcr9970C862": {
-      "Properties": {
-        "CertificateBucketName": {
-          "Ref": "testcert2B8123E2",
-        },
-        "CertificatePrefix": "greengrass-fleet-provisioning",
-        "ResourcePrefix": "greengrass-fleet-provisioning",
-        "ServiceTimeout": 60,
-        "ServiceToken": {
-          "Fn::GetAtt": [
-            "testconstructgreengrassfleetprovisioningcrlambdaproviderframeworkonEvent0217D959",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::CloudFormation::CustomResource",
-    },
-    "testconstructgreengrassfleetprovisioningcrlambda1EBD41A3": {
+    "testconstructfunctionD8151FD6": {
       "DependsOn": [
-        "testconstructgreengrassfleetprovisioningcrlambdaServiceRoleDefaultPolicyEC28ACB3",
-        "testconstructgreengrassfleetprovisioningcrlambdaServiceRole6DA6FF0F",
+        "testconstructfunctionServiceRoleDefaultPolicy274CC470",
+        "testconstructfunctionServiceRole04DFC038",
       ],
       "Properties": {
         "Code": {
@@ -123,7 +106,7 @@ exports[`GreengrassFleetProvisioningStack Snapshot 1`] = `
         "Handler": "index.handler",
         "Role": {
           "Fn::GetAtt": [
-            "testconstructgreengrassfleetprovisioningcrlambdaServiceRole6DA6FF0F",
+            "testconstructfunctionServiceRole04DFC038",
             "Arn",
           ],
         },
@@ -132,7 +115,7 @@ exports[`GreengrassFleetProvisioningStack Snapshot 1`] = `
       },
       "Type": "AWS::Lambda::Function",
     },
-    "testconstructgreengrassfleetprovisioningcrlambdaLogRetention26FFF4C4": {
+    "testconstructfunctionLogRetention34DBB3F4": {
       "Properties": {
         "LogGroupName": {
           "Fn::Join": [
@@ -140,7 +123,7 @@ exports[`GreengrassFleetProvisioningStack Snapshot 1`] = `
             [
               "/aws/lambda/",
               {
-                "Ref": "testconstructgreengrassfleetprovisioningcrlambda1EBD41A3",
+                "Ref": "testconstructfunctionD8151FD6",
               },
             ],
           ],
@@ -155,7 +138,7 @@ exports[`GreengrassFleetProvisioningStack Snapshot 1`] = `
       },
       "Type": "Custom::LogRetention",
     },
-    "testconstructgreengrassfleetprovisioningcrlambdaServiceRole6DA6FF0F": {
+    "testconstructfunctionServiceRole04DFC038": {
       "Properties": {
         "AssumeRolePolicyDocument": {
           "Statement": [
@@ -186,7 +169,7 @@ exports[`GreengrassFleetProvisioningStack Snapshot 1`] = `
       },
       "Type": "AWS::IAM::Role",
     },
-    "testconstructgreengrassfleetprovisioningcrlambdaServiceRoleDefaultPolicyEC28ACB3": {
+    "testconstructfunctionServiceRoleDefaultPolicy274CC470": {
       "Properties": {
         "PolicyDocument": {
           "Statement": [
@@ -237,14 +220,31 @@ exports[`GreengrassFleetProvisioningStack Snapshot 1`] = `
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "testconstructgreengrassfleetprovisioningcrlambdaServiceRoleDefaultPolicyEC28ACB3",
+        "PolicyName": "testconstructfunctionServiceRoleDefaultPolicy274CC470",
         "Roles": [
           {
-            "Ref": "testconstructgreengrassfleetprovisioningcrlambdaServiceRole6DA6FF0F",
+            "Ref": "testconstructfunctionServiceRole04DFC038",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
+    },
+    "testconstructgreengrassfleetprovisioningcr9970C862": {
+      "Properties": {
+        "CertificateBucketName": {
+          "Ref": "testcert2B8123E2",
+        },
+        "CertificatePrefix": "greengrass-fleet-provisioning",
+        "ResourcePrefix": "greengrass-fleet-provisioning",
+        "ServiceTimeout": 60,
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "testconstructgreengrassfleetprovisioningcrlambdaproviderframeworkonEvent0217D959",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::CustomResource",
     },
     "testconstructgreengrassfleetprovisioningcrlambdaproviderframeworkonEvent0217D959": {
       "DependsOn": [
@@ -261,7 +261,7 @@ exports[`GreengrassFleetProvisioningStack Snapshot 1`] = `
           "Variables": {
             "USER_ON_EVENT_FUNCTION_ARN": {
               "Fn::GetAtt": [
-                "testconstructgreengrassfleetprovisioningcrlambda1EBD41A3",
+                "testconstructfunctionD8151FD6",
                 "Arn",
               ],
             },
@@ -272,7 +272,7 @@ exports[`GreengrassFleetProvisioningStack Snapshot 1`] = `
             "",
             [
               {
-                "Ref": "testconstructgreengrassfleetprovisioningcrlambda1EBD41A3",
+                "Ref": "testconstructfunctionD8151FD6",
               },
               "-provider",
             ],
@@ -354,7 +354,7 @@ exports[`GreengrassFleetProvisioningStack Snapshot 1`] = `
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "testconstructgreengrassfleetprovisioningcrlambda1EBD41A3",
+                    "testconstructfunctionD8151FD6",
                     "Arn",
                   ],
                 },
@@ -364,7 +364,7 @@ exports[`GreengrassFleetProvisioningStack Snapshot 1`] = `
                     [
                       {
                         "Fn::GetAtt": [
-                          "testconstructgreengrassfleetprovisioningcrlambda1EBD41A3",
+                          "testconstructfunctionD8151FD6",
                           "Arn",
                         ],
                       },
@@ -379,7 +379,7 @@ exports[`GreengrassFleetProvisioningStack Snapshot 1`] = `
               "Effect": "Allow",
               "Resource": {
                 "Fn::GetAtt": [
-                  "testconstructgreengrassfleetprovisioningcrlambda1EBD41A3",
+                  "testconstructfunctionD8151FD6",
                   "Arn",
                 ],
               },
@@ -545,18 +545,6 @@ exports[`GreengrassFleetProvisioningStack Snapshot 1`] = `
       },
       "Type": "AWS::IoT::Policy",
     },
-    "testconstructgreengrassfleetprovisioningggprovisioningclaimpolicyattachmentA3834D3A": {
-      "Properties": {
-        "PolicyName": "greengrass-fleet-provisioning-gg-fleet-provisioning",
-        "Principal": {
-          "Fn::GetAtt": [
-            "testconstructgreengrassfleetprovisioningcr9970C862",
-            "certificateArn",
-          ],
-        },
-      },
-      "Type": "AWS::IoT::PolicyPrincipalAttachment",
-    },
     "testconstructgreengrassfleetprovisioningggprovisioningtemplate8CE8A453": {
       "Properties": {
         "Description": "Fleet Provisioning template for AWS IoT Greengrass.",
@@ -716,6 +704,18 @@ exports[`GreengrassFleetProvisioningStack Snapshot 1`] = `
         ],
       },
       "Type": "AWS::IAM::Policy",
+    },
+    "testconstructgreengrassprovisioningclaimpolicyattachmentEFB7C9E8": {
+      "Properties": {
+        "PolicyName": "greengrass-fleet-provisioning-gg-fleet-provisioning",
+        "Principal": {
+          "Fn::GetAtt": [
+            "testconstructgreengrassfleetprovisioningcr9970C862",
+            "certificateArn",
+          ],
+        },
+      },
+      "Type": "AWS::IoT::PolicyPrincipalAttachment",
     },
   },
   "Rules": {
