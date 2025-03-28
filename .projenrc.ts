@@ -37,7 +37,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   ],
   packageManager: javascript.NodePackageManager.YARN_BERRY,
   yarnBerryOptions: {
-    version: "4.7.0",
+    version: '4.7.0',
     yarnRcOptions: {
       nodeLinker: YarnNodeLinker.NODE_MODULES,
     },
