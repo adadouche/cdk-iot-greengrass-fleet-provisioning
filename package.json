@@ -34,14 +34,17 @@
     "organization": false
   },
   "devDependencies": {
+    "@jest/globals": "^29.7.0",
     "@stylistic/eslint-plugin": "^2",
+    "@types/aws-lambda": "^8.10.147",
     "@types/jest": "^29.5.14",
-    "@types/node": "^22.13.16",
+    "@types/node": "^20.14.8",
     "@typescript-eslint/eslint-plugin": "^8",
     "@typescript-eslint/parser": "^8",
-    "aws-cdk-lib": "2.1.0",
+    "aws-cdk-lib": "2.186.0",
     "commit-and-tag-version": "^12",
     "constructs": "10.0.5",
+    "esbuild": "^0.25.1",
     "eslint": "^9",
     "eslint-import-resolver-typescript": "^4.3.1",
     "eslint-plugin-import": "^2.31.0",
@@ -58,18 +61,40 @@
     "typescript": "^5.8.2"
   },
   "peerDependencies": {
-    "aws-cdk-lib": "^2.1.0",
+    "aws-cdk-lib": "^2.186.0",
     "constructs": "^10.0.5"
   },
+  "dependencies": {
+    "@aws-sdk/client-iot": "^3.777.0",
+    "@aws-sdk/client-s3": "^3.777.0",
+    "@aws-sdk/client-ssm": "^3.777.0",
+    "@smithy/smithy-client": "^4.2.0",
+    "aws-lambda": "^1.0.7"
+  },
+  "bundledDependencies": [
+    "@aws-sdk/client-iot",
+    "@aws-sdk/client-s3",
+    "@aws-sdk/client-ssm",
+    "@smithy/smithy-client",
+    "aws-lambda"
+  ],
   "keywords": [
+    "AWS",
+    "AWS IoT Certificate",
+    "AWS IoT Core",
+    "AWS IoT Greengrass",
     "cdk"
   ],
+  "engines": {
+    "node": ">= 20.14.0"
+  },
   "main": "lib/index.js",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
   "version": "0.0.0",
+  "packageManager": "yarn@4.8.0",
   "jest": {
     "coverageProvider": "v8",
     "testMatch": [

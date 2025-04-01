@@ -18,12 +18,23 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: main
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Set Yarn version
+        run: yarn set version 4.8.0
+      - name: Clean Yarn cache
+        run: yarn cache clean --all
+      - name: Disable Mutable Installs
+        run: yarn config set -H enableImmutableInstalls false
+      - name: Enable write / execute on .yarnrc.yml
+        run: chmod +xw .yarnrc.yml || true
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: lts/*
+          node-version: 20.14.0
+          cache: yarn
       - name: Install dependencies
-        run: yarn install --check-files --frozen-lockfile
+        run: yarn install --immutable
       - name: Upgrade dependencies
         run: npx projen upgrade
       - name: Find mutations

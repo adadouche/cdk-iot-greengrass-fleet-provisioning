@@ -19,12 +19,23 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Set Yarn version
+        run: yarn set version 4.8.0
+      - name: Clean Yarn cache
+        run: yarn cache clean --all
+      - name: Disable Mutable Installs
+        run: yarn config set -H enableImmutableInstalls false
+      - name: Enable write / execute on .yarnrc.yml
+        run: chmod +xw .yarnrc.yml || true
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: lts/*
+          node-version: 20.14.0
+          cache: yarn
       - name: Install dependencies
-        run: yarn install --check-files
+        run: yarn install
       - name: build
         run: npx projen build
       - name: Find mutations
@@ -95,7 +106,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v4
         with:
-          node-version: lts/*
+          node-version: 20.14.0
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
@@ -104,6 +115,16 @@ jobs:
       - name: Restore build artifact permissions
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Set Yarn version
+        run: yarn set version 4.8.0
+      - name: Clean Yarn cache
+        run: yarn cache clean --all
+      - name: Disable Mutable Installs
+        run: yarn config set -H enableImmutableInstalls false
+      - name: Enable write / execute on .yarnrc.yml
+        run: chmod +xw .yarnrc.yml || true
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -111,7 +132,7 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           path: .repo
       - name: Install Dependencies
-        run: cd .repo && yarn install --check-files --frozen-lockfile
+        run: cd .repo && yarn install --immutable
       - name: Extract build artifact
         run: tar --strip-components=1 -xzvf dist/js/*.tgz -C .repo
       - name: Move build artifact out of the way
