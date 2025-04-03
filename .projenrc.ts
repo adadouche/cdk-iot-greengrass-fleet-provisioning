@@ -5,7 +5,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Abdelhalim Dadouche',
   authorAddress: 'adadouche@hotmail.com',
   packageName: 'cdk-iot-greengrass-fleet-provisioning', /* The "name" in package.json. */
-  description: 'CDK Construct for AWS IoT Greengrass Fleet Provisioning (with AWS IoT Certificates)',  /* The description is just a string that helps people understand the purpose of the package. */
+  description: 'CDK Construct for AWS IoT Greengrass Fleet Provisioning (with AWS IoT Certificates)', /* The description is just a string that helps people understand the purpose of the package. */
   cdkVersion: '2.186.0',
   jsiiVersion: '~5.8.0',
   minNodeVersion: '20.14.0',
@@ -22,7 +22,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   ],
   /* Build dependencies for this module. */
   devDeps: [
-    '@types/aws-lambda@^8.10.147',
     '@types/node@^20.14.8',
     '@jest/globals',
     'esbuild@^0.25.1',
@@ -33,7 +32,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     '@aws-sdk/client-s3@^3.777.0',
     '@aws-sdk/client-ssm@^3.777.0',
     '@smithy/smithy-client@^4.2.0',
-    'aws-lambda@^1.0.7',
+    '@types/aws-lambda@^8.10.147',
   ],
   packageManager: javascript.NodePackageManager.YARN_BERRY,
   yarnBerryOptions: {
