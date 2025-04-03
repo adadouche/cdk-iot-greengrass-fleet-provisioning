@@ -5,7 +5,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Abdelhalim Dadouche',
   authorAddress: 'adadouche@hotmail.com',
   packageName: 'cdk-iot-greengrass-fleet-provisioning', /* The "name" in package.json. */
-  // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
+  description: 'CDK Construct for AWS IoT Greengrass Fleet Provisioning (with AWS IoT Certificates)',  /* The description is just a string that helps people understand the purpose of the package. */
   cdkVersion: '2.186.0',
   jsiiVersion: '~5.8.0',
   minNodeVersion: '20.14.0',
