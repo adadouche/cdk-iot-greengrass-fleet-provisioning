@@ -11,11 +11,12 @@
 
 [AWS CDK] L3 construct for managing AWS IoT fleet provisioning for Greengrass devices (including [AWS IoT Core] Certificates).
 
+>
 > This construct was largely inspired by the [CDK IoT Core Certificates](https://constructs.dev/packages/cdk-iot-core-certificates) construct developped by [devops-at-home](https://github.com/devops-at-home)  which was archived on [GitHub](https://github.com/devops-at-home/cdk-iot-core-certificates) hence the need for a new CDK Construct.
 >
 
 As mentioned in the orginal construct, CloudFormation doesn't directly support creation of certificates for AWS IoT Core. 
-Also in order to provison fleets of devices, the AWS IoT Greengrass requires a number of assets that needs to be manually created including an AWS IoT Certificate.
+Also, in order to provison fleets of devices, the AWS IoT Greengrass requires a number of assets that needs to be manually created including an AWS IoT Certificate.
 
 This construct provides an easy interface for creating AWS IoT Greengrass fleet provisioning assests.
 
