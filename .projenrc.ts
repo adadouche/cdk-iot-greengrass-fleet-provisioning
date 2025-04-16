@@ -69,4 +69,3 @@ const project = new awscdk.AwsCdkConstructLibrary({
   // dependabot: true,
 });
 project.synth();
-
