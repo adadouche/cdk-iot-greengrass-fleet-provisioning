@@ -101,7 +101,7 @@ export async function createResource(resource: ResourceProperties): Promise<Crea
     endpointType: 'iot:CredentialProvider',
   });
   const dataEndpointAddress = await iotClient.describeEndpoint({
-    endpointType: 'iot:CredentialProvider',
+    endpointType: 'iot:Data-ATS',
   });;
 
   return {
